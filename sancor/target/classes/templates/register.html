@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/css/style.css">
+        <title>Регистрация сотрудника - Sancor</title>
+    </head>
+    <body>
+
+        <header class="main-header">
+            <a class="logo" >Sancor</a>
+            <div class="r-menu">
+            <ul class="emp-menu">
+                <li><a th:href="@{/profile/all}">Сотрудники</a></li>
+                <li><a th:href="@{/auth/register}" style="font-weight: 600">Регистрация сотрудников</a></li>
+            </ul>
+            <div class="btns">
+                <ul class="options"> 
+                    <li><button class="set-btn"><img src="/img/settings.svg" alt="Settings" class="imgbtn"></button>
+                        <ul>
+                        <li class="subitem"><a href="#">Отчеты</a></li>
+                        <li class="subitem"><a href="#">Уведомления</a></li>
+                        <li class="subitem"><a href="#">Сменить пароль</a></li>
+                        <li class="subitem"><a th:href="@{/logout}">Выход</a></li>
+                        <li class="subitem"><a href="#">Удалить пользователя</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+                 </div>
+        </header>
+
+        <div class="box" id="register-box" style="position: relative">
+            <a th:href="@{/profile/all}"><img src="/img/deny.svg" alt="Back" class="reg-back"></a>
+            <label class="login-label">Регистрация сотрудника</label>
+            <form th:action="@{/auth/register}" method="post" th:object="${user}">
+                <div class="login-block">
+                    
+                    <label class="login-field"> Логин </label><input type="text" class="login-data" name="username" placeholder="Придумайте логин" th:field="*{username}"/>
+                    <label class="login-field"> Пароль </label><input type="password" class="login-data" name="password" placeholder="Придумайте пароль" th:field="*{password}"/>
+                    <label class="login-field"> Фамилия </label><input type="text" class="login-data" name="surname" placeholder="Введите фамилию сотрудника"/>
+                    <label class="login-field"> Имя </label><input type="text" class="login-data" name="name" placeholder="Введите имя сотрудника"/>
+                    <label class="login-field"> Отчество </label><input type="text" class="login-data" name="patronymic" placeholder="Введите отчество сотрудника"/>
+                    <label class="login-field"> Электронная почта </label><input type="text" class="login-data" name="mail" placeholder="Введите электронную почту сотрудника" th:field="*{worker.mail}"/>
+                    <label class="login-field"> Дата рождения </label><input type="text" class="login-data" name="birth" placeholder="ДД.ММ.ГГГГ" th:field="*{worker.birth}"/>
+                    <label class="login-field"> Должность </label><input type="text" class="login-data" name="position" placeholder="Введите должность сотрудника" th:field="*{worker.position}"/>
+                    <label class="login-field"> Рост </label><input type="text" class="login-data" name="height" placeholder="Введите рост сотрудника" th:field="*{worker.height}"/>
+                    <label class="login-field"> Вес </label><input type="text" class="login-data" name="weight" placeholder="Введите вес сотрудника" th:field="*{worker.weight}"/>
+                    <label class="login-field"> Пол </label>
+                    <div class="register-radio">
+                        <div class="radio-block"><input type="radio" checked id="radio-male" name="sex" value="Мужской" th:field="*{worker.sex}"><label for="radio-male">Мужской</label></div>
+                        <div class="radio-block"><input type="radio" id="radio-female" name="sex" value="Женский" th:field="*{worker.sex}" ><label for="radio-female">Женский</label></div>
+                    </div>
+                    
+                    <div><input type="submit" class="login-btn" value="Зарегистрировать"/></div>
+
+                </div>
+                
+            </form>
+            
+        </div>
+    </body>
+
+</html>

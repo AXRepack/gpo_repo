@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+    <head>
+      <meta charset="utf-8">
+            <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="/css/style.css">
+            <title>Сотрудники - Sancor</title>
+    </head>
+    <body>
+        
+        <header class="main-header">
+            <text class="logo" th:href="@{/profile}">Sancor</text>
+            <div class="r-menu">
+            <ul class="emp-menu">
+                <li><a th:href="@{/profile/all}"  style="font-weight: 600">Сотрудники</a></li>
+                <li><a th:href="@{/auth/register}">Регистрация сотрудников</a></li>
+            </ul>
+            <div class="btns">
+                <ul class="options"> 
+                    <li><button class="set-btn"><img src="/img/settings.svg" alt="Settings" class="imgbtn"></button>
+                        <ul>
+                        <li class="subitem"><a href="#">Отчеты</a></li>
+                        <li class="subitem"><a href="#">Уведомления</a></li>
+                        <li class="subitem"><a href="#">Сменить пароль</a></li>
+                        <li class="subitem"><a th:href="@{/logout}" style="color: #005595">Выход</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+                 </div>
+        </header>
+        
+        <div class="box" id="workers-box">
+            <label class="login-label" style="margin-bottom: 30px">Список сотрудников</label>
+            
+            <div class="table-header">
+                <div class="table-fio">
+                    ФИО сотрудника
+                </div>
+                <div class="table-position">
+                    Должность
+                </div>
+                <div class="table-mail">
+                    Почта
+                </div>
+            </div>
+            <div th:each="worker :${workers}">
+                <a  class="table-row-worker" th:href="${worker.id}" href="#">
+                    <div class="table-fio" th:text="${worker.name}">
+                    </div>
+                    <div class="table-position" th:text="${worker.position}">
+                    </div>
+                    <div class="table-mail" th:text="${worker.mail}">
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+  
+    </body>
+</html>

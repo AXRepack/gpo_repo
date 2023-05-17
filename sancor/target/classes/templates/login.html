@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,900;1,400&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/css/style.css">
+        <title>Авторизация - Sancor</title>
+    </head>
+    <body>
+
+         <header class="main-header">
+            <text class="logo">Sancor</text>
+        </header>
+
+        <div class="box" id="login-box">
+            
+            <label class="login-label">Авторизация</label>
+            <form th:action="@{/auth/login}" method="post">
+                <div class="login-block">
+                    
+                <label class="login-field"> Логин </label><input type="text" class="login-data" name="username" placeholder="Введите логин"/> 
+                <label class="login-field"> Пароль </label><input type="password" class="login-data" name="password" placeholder="Введите пароль"/> 
+                <text class="login-error">Неверный логин или пароль</text>
+                <a href="#">Забыли пароль?</a>
+                <div><input type="submit" class="login-btn" value="Войти"/></div>
+                </div>
+            </form>
+
+            
+
+        </div>
+        <div th:if="${param.error}">
+            <style>
+                .login-data {
+                    border: 1px solid #cb0000;
+                }
+                .login-error {
+                    display: flex;
+                }
+            </style>
+        </div>  
+    </body>
+</html>
+

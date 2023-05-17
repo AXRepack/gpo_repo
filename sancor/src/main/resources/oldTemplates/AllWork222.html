@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Register</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h2 th:each="worker :${workers}">
+
+  <a th:href="${worker.id}" th:text="${worker.name}  + ' ' + ${worker.mail}">     </a>
+
+</h2>
+</body>
+
+
+
+<form th:action="@{/profile/indicator}" method="post">
+  <div class="login-block">
+
+    <label class="login-field"> Логин </label><input type="text" class="login-data" name="indicatorTypeString" placeholder="Введите type"/>
+    <label class="login-field"> Пароль </label><input type="text" class="login-data" name="value" placeholder="Введите value"/>
+    <label class="login-field"> Пароль </label><input type="text" class="login-data" name="id" placeholder="Введите value"/>
+    <text class="login-error">Неверный логин или пароль</text>
+    <a href="#">Забыли пароль?</a>
+    <div><input type="submit" class="login-btn" value="add"/></div>
+  </div>
+</form>
+
+</html>

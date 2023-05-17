@@ -1,0 +1,622 @@
+<!doctype html>
+    <html xmlns:th="https://www.thymeleaf.org">
+        <head>
+            <meta charset="utf-8">
+            <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="/css/style.css">
+            <title>Профиль - Sancor</title>
+        </head>
+        <body>
+        <form id="data" method="post" th:action="@{/profile/editAttributes}" th:object="${worker}">
+            
+    <header class="main-header">
+        <a class="logo" th:href="@{/profile}">Sancor</a>
+        <div class="r-menu">
+        <ul class="emp-menu">
+            <li><a th:href="@{/profile/all}">Сотрудники</a></li>
+            <li><a th:href="@{/auth/register}">Регистрация сотрудников</a></li>
+        </ul>
+        <div class="btns">
+            <ul class="options"> 
+                
+                <li><button type="submit" class="btn" id="save-btn" style="display: none"><img src="/img/save.svg" alt="Save" class="imgbtn"></button></li>
+                <li><button type="button" class="btn" id="deny-btn" style="display: none"><img src="/img/deny.svg" alt="Deny" class="imgbtn"></button></li>
+                <li><button type="button" class="btn" id="edit-btn"><img src="/img/edit.svg" alt="Edit" class="imgbtn"></button></li>
+                <li><button type="button" class="set-btn"><img src="/img/settings.svg" alt="Settings" class="imgbtn"></button>
+                    <ul>
+                    <li class="subitem"><a href="#">Отчеты</a></li>
+                    <li class="subitem"><a href="#">Уведомления</a></li>
+                    <li class="subitem"><a href="#">Сменить пароль</a></li>
+                    <li class="subitem"><a th:href="@{/logout}">Выход</a></li>
+                    <li class="subitem"><a href="#">Удалить пользователя</a></li>
+                    </ul>
+                </li>
+            </ul>
+            
+        </div>
+             </div>
+    </header>
+            <div class="box" id="profile-box">
+                
+                <div class="profile">
+                    <div class="avatar">
+                        <img src="/img/Photo.jpg" alt="Photo">
+                    </div>
+                    <div class="main-info">
+                        <div>
+                            <input type="text" size="90" class="field" name="name" id="name"  readonly th:field="*{name}" value="Алексеев Александр Александрович">
+                        </div>
+                        <div class="inform">
+                        <ul class="inf-type">
+                            <li><label>Электронная почта:</label></li>
+                            <li><label>Дата рождения:</label></li>
+                            <li><label>Должность:</label></li>
+                        </ul>
+                        <ul class="inf-res">
+                            <li><input type="text" size="90" class="field" name="mail" id="mail" value="alekseev.sasha1985@gmail.com" readonly th:field="*{mail}"></li>
+                            <li><input type="text" size="90" class="field" name="birth" id="birth" value="20.02.1985" readonly th:field="*{birth}"></li>
+                            <li><input type="text" size="90" class="field" name="position" id="position" value="Начальник линии сборки КПФВ-3" readonly th:field="*{position}"></li>
+                            <li><input type="hidden"  id="id" name="id"   th:value="${workId}"></li>
+
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="main-data">
+                    <ul class="md-list">
+                        <li><ul><label class="md-type">Пол:</label>
+                            <input type="text" size="10" class="field" name="sex" id="sex" value="Мужской" readonly th:field="*{sex}"></ul></li>
+                        <li><ul><label class="md-type">Возраст:</label>
+                            <input type="text" size="3" class="field-not-editable" name="age" id="age" value="38" readonly th:field="*{age}"></ul></li>
+                        <li><ul><label class="md-type">Рост:</label>
+                            <input type="text" size="3" class="field" name="height" id="height" value="179" readonly th:field="*{height}"></ul></li>
+                        <li><ul><label class="md-type">Вес:</label>
+                            <input type="text" size="3" class="field" name="weight" id="weight" value="78" readonly th:field="*{weight}"></ul></li>
+                    </ul>
+                </div>
+                <div class="light-description">
+                    <div class="light-block"><div class="ellipse" name="green"></div><label class="light-label"> - Показатель в норме</label></div>
+                    <div class="light-block"><div class="ellipse" name="yellow"></div><label class="light-label"> - Отклонения от нормы</label></div>
+                    <div class="light-block"><div class="ellipse" name="red"></div><label class="light-label"> - Критические отклонения</label></div>
+                </div>
+                <div class="index-table">
+                    <div class="table-header">
+                        <label class="table-param">
+                            Параметр
+                        </label>
+                        <label class="table-value">
+                            Текущая<br/>оценка
+                        </label>
+                        <label class="table-normal">
+                            Норма
+                        </label>
+                        <label class="table-desc">
+                            Интерпретация
+                        </label>
+                    </div>
+                    <div class="table-content">
+                        <div class="table-row">
+                            <label class="table-param">
+                                Температура тела
+                            </label>
+                            <label class="table-value">
+                                <input type="text" size="5" class="param-edit" name="temp" id="temp" value="36.6" readonly >
+                                <div class="ellipse" name="green"></div>
+                            </label>
+                            <label class="table-normal">
+                                36.6
+                            </label>
+                            <label class="table-desc">
+                                Показатель в норме
+                            </label>
+                        </div>
+                        <div class="table-row">
+                            <label class="table-param">
+                                Сатурация
+                            </label>
+                            <label class="table-value">
+                                <input type="text" size="5" class="param-edit" name="satur" id="satur" value="98" readonly >
+                                <div class="ellipse" name="green"></div>
+                            </label>
+                            <label class="table-normal">
+                                98
+                            </label>
+                            <label class="table-desc">
+                                Показатель в норме
+                            </label>
+                        </div>
+                        <div class="table-row">
+                            <label class="table-param">
+                                ЧСС
+                            </label>
+                            <label class="table-value">
+                                <input type="text" size="5" class="param-edit" name="pulse" id="pulse" value="83" readonly >
+                                <div class="ellipse" name="green"></div>
+                            </label>
+                            <label class="table-normal">
+                                83
+                            </label>
+                            <label class="table-desc">
+                                Показатель в норме
+                            </label>
+                        </div>
+                        <div class="table-row">
+                            <label class="table-param">
+                                <div class="show-hint">
+                                    <button type="button" class="info-btn"><img src="/img/info.svg" alt="About"></button>
+                                    <div class="hint">
+                                        Диагностический критерий ожирения, учитывающий отношение веса к росту
+                                    </div>
+                                </div>
+                                Индекс массы тела
+                            </label>
+                            <label class="table-value">
+                                <input type="text" size="5" class="param" name="IMT" id="IMT" th:field="*{IMT}" readonly >
+                                <div class="ellipse" th:name="*{IMT_COLOR}" id="IMT-COLOR"></div>
+                            </label>
+                            <label class="table-normal">
+                                Норма
+                            </label>
+                            <label class="table-desc">
+                                Описание атрибута
+                            </label>
+                        </div>
+                        <div class="table-row">
+                            <label class="table-param">
+                                <div class="show-hint">
+                                    <button type="button" class="info-btn"><img src="/img/info.svg" alt="About"></button>
+                                    <div class="hint">
+                                        Основной обмен - один из показателей интенсивности обмена веществ и энергии, выражаемый количеством энергии, необходимым для поддержания жизни в состоянии полного физического и психического покоя
+                                    </div>
+                                </div>
+                                Процент отклонения основного обмена от нормы
+                            </label>
+                            <label class="table-value">
+                                <input type="text" size="5" class="param" value="9" readonly>
+                                <div class="ellipse" name="green"></div>
+                            </label>
+                            <label class="table-normal">
+                                9
+                            </label>
+                            <label class="table-desc">
+                                Нормальное отклонение
+                            </label>
+                        </div>
+                        <div class="table-row">
+                            <label class="table-param">
+                                <div class="show-hint">
+                                    <button type="button" class="info-btn"><img src="/img/info.svg" alt="About"></button>
+                                    <div class="hint">
+                                        Используется для оценки уровня функционирования сердечно-сосудистой системы. Разработан в концепции здоровья, рассматривающей переход от здоровья к болезни как процесс постепенного снижения адаптационных возможностей организма
+                                    </div>
+                                </div>
+                                Индекс функциональных изменений
+                            </label>
+                            <label class="table-value">
+                                <input type="text" size="5" class="param" value="2,55" readonly>
+                                <div class="ellipse" name="green"></div>
+                            </label>
+                            <label class="table-normal">
+                                2,55
+                            </label>
+                            <label class="table-desc">
+                                Удовлетворительная адаптация
+                            </label>
+                        </div>
+                        <div class="table-row">
+                            <label class="table-param">
+                                <div class="show-hint">
+                                    <button type="button" class="info-btn"><img src="/img/info.svg" alt="About"></button>
+                                    <div class="hint">
+                                        Модифицированный показатель индекса функциональных изменений для оценки функционального состояния системы кровообращения
+                                    </div>
+                                </div>
+                                Коэффициент здоровья
+                            </label>
+                            <label class="table-value">
+                                <input type="text" size="5" class="param" value="1" readonly>
+                                <div class="ellipse" name="green"></div>
+                            </label>
+                            <label class="table-normal">
+                                1
+                            </label>
+                            <label class="table-desc">
+                                Оптимальная степень адаптации системы кровообращения
+                            </label>
+                        </div>
+                        <div class="table-row">
+                            <label class="table-param">
+                                <div class="show-hint">
+                                    <button type="button" class="info-btn"><img src="/img/info.svg" alt="About"></button>
+                                    <div class="hint">
+                                        Показатель комплексной оценки уровня физического состояния 
+                                    </div>
+                                </div>
+                                Уровень физического состояния
+                            </label>
+                            <label class="table-value">
+                                <input type="text" size="5" class="param" value="0,83" readonly>
+                                <div class="ellipse" name="green"></div>
+                            </label>
+                            <label class="table-normal">
+                                1
+                            </label>
+                            <label class="table-desc">
+                                Высокий уровень физического состояния
+                            </label>
+                        </div>
+                        <div class="table-row">
+                            <label class="table-param">
+                                <div class="show-hint">
+                                    <button type="button" class="info-btn"><img src="/img/info.svg" alt="About"></button>
+                                    <div class="hint">
+                                        Показатель оценки функционирования вегетативной нервной системы человека 
+                                    </div>
+                                </div>
+                                Индекс Кердо
+                            </label>
+                            <label class="table-value">
+                                <input type="text" size="5" class="param" value="16" readonly>
+                                <div class="ellipse" name="green"></div>
+                            </label>
+                            <label class="table-normal">
+                                16
+                            </label>
+                            <label class="table-desc">
+                                Относительное равновесие
+                            </label>
+                        </div>
+                        <div class="table-row">
+                            <label class="table-param">
+                                <div class="show-hint">
+                                    <button type="button" class="info-btn"><img src="/img/info.svg" alt="About"></button>
+                                    <div class="hint">
+                                        Индекс напряжения регуляторных систем, показывающий степень централизации в управлении сердечным ритмом
+                                    </div>
+                                </div>
+                                Индекс Баевского
+                            </label>
+                            <label class="table-value">
+                                <input type="text" size="5" class="param" value="151" readonly>
+                                <div class="ellipse" name="yellow"></div>
+                            </label>
+                            <label class="table-normal">
+                                120
+                            </label>
+                            <label class="table-desc">
+                                Высокий уровень показателя; возможное воздействие стрессорных факторов
+                            </label>
+                        </div>
+                        <div class="table-row">
+                            <label class="table-param">
+                                <div class="show-hint">
+                                    <button type="button" class="info-btn"><img src="/img/info.svg" alt="About"></button>
+                                    <div class="hint">
+                                        Показатель вагосимпатического взаимодействия, отражающий баланс симпатических и парасимпатических регуляторных влияний на сердце.
+                                    </div>
+                                </div>
+                                Индекс LF/HF
+                            </label>
+                            <label class="table-value">
+                                <input type="text" size="5" class="param" value="2,2" readonly>
+                                <div class="ellipse" name="red"></div>
+                            </label>
+                            <label class="table-normal">
+                                5
+                            </label>
+                            <label class="table-desc">
+                                Высокий уровень показателя; возможное воздействие стрессорных факторов
+                            </label>
+                        </div>
+                        <div class="table-row">
+                            <label class="table-param">
+                                <div class="show-hint">
+                                    <button type="button" class="info-btn"><img src="/img/info.svg" alt="About"></button>
+                                    <div class="hint">
+                                        Показатель, отражающий баланс между активностью сегментарного и надсегментарного контуров вегетативного управления. Увеличивается при усилении автономных влияний.
+                                    </div>
+                                </div>
+                                Индекс централизации
+                            </label>
+                            <label class="table-value">
+                                <input type="text" size="5" class="param" value="5" readonly>
+                                <div class="ellipse" name="yellow"></div>
+                            </label>
+                            <label class="table-normal">
+                                3
+                            </label>
+                            <label class="table-desc">
+                                Высокий уровень показателя; возможное воздействие стрессорных факторов
+                            </label>
+                        </div>
+                    </div>
+                        <label class="table-name">Артериальное давление</label>
+                        
+                    <div class="table-header">
+                        <label class="table-param">
+                            Параметр
+                        </label>
+                        <label class="table-value">
+                            Текущая<br/>оценка
+                        </label>
+                        <label class="table-normal">
+                            Норма
+                        </label>
+                        <label class="table-desc">
+                            Интерпретация
+                        </label>
+                    </div>
+                        <div class="table-content">
+                            <div class="table-row">
+                            <label class="table-param">
+                                <div class="show-hint">
+                                    <button type="button" class="info-btn"><img src="/img/info.svg" alt="About"></button>
+                                    <div class="hint">
+                                        <text style="width: 440px">Систолическое артериальное давление</text>
+                                    </div>
+                                </div>
+                                САД
+                            </label>
+                            <label class="table-value">
+                                <input type="text" size="5" class="param-edit" name="sad" id="sad" value="125" readonly>
+                                <div class="ellipse" name="green"></div>
+                            </label>
+                            <label class="table-normal">
+                                120
+                            </label>
+                            <label class="table-desc">
+                                Показатель в норме
+                            </label>
+                            </div>
+                            <div class="table-row">
+                                <label class="table-param">
+                                    <div class="show-hint">
+                                        <button type="button" class="info-btn"><img src="/img/info.svg" alt="About"></button>
+                                        <div class="hint">
+                                            <text style="width: 440px">Диастолическое артериальное давление</text>
+                                        </div>
+                                    </div>
+                                    ДАД
+                                </label>
+                                <label class="table-value">
+                                    <input type="text" size="5" name="dad" id="dad" class="param-edit" value="60" readonly >
+                                    <div class="ellipse" name="green"></div>
+                                </label>
+                                <label class="table-normal">
+                                    60
+                                </label>
+                                <label class="table-desc">
+                                    Показатель в норме
+                                </label>
+                            </div>
+                            <div class="table-row">
+                                <label class="table-param">
+                                    <div class="show-hint">
+                                        <button type="button" class="info-btn"><img src="/img/info.svg" alt="About"></button>
+                                        <div class="hint">
+                                            <text style="width: 440px">Среднее артериальное давление</text>
+                                        </div>
+                                    </div>
+                                    АДср
+                                </label>
+                                <label class="table-value">
+                                    <input type="text" size="5" class="param-edit" name="adsr" id="adsr" value="90" readonly >
+                                    <div class="ellipse" name="green"></div>
+                                </label>
+                                <label class="table-normal">
+                                    90
+                                </label>
+                                <label class="table-desc">
+                                    Показатель в норме
+                                </label>
+                            </div>
+                            <div class="table-row">
+                                <label class="table-param">
+                                    <div class="show-hint">
+                                        <button type="button" class="info-btn"><img src="/img/info.svg" alt="About"></button>
+                                        <div class="hint">
+                                            <text style="width: 440px">Суточный индекс - используется для оценки суточного ритма артериального давления и представляет собой расчет степени ночного снижения артериального давления</text>
+                                        </div>
+                                    </div>
+                                    СИ
+                                </label>
+                                <label class="table-value">
+                                    <input type="text" size="5" class="param" value="-" readonly>
+                                    <div class="ellipse" name=""></div>
+                                </label>
+                                <label class="table-normal">
+                                    -
+                                </label>
+                                <label class="table-desc">
+                                    -
+                                </label>
+                            </div>
+                            <div class="table-row">
+                                <label class="table-param">
+                                    <div class="show-hint">
+                                        <button type="button" class="info-btn"><img src="/img/info.svg" alt="About"></button>
+                                        <div class="hint">
+                                            <text style="width: 440px">Индекс времени гипертензии - используется в качестве количественной оценки величины “нагрузки давлением”, отражает частоту превышения “безопасного” верхнего предела артериального давления</text>
+                                        </div>
+                                    </div>
+                                    ИВ
+                                </label>
+                                <label class="table-value">
+                                    <input type="text" size="5" class="param" value="-" readonly>
+                                    <div class="ellipse" name=""></div>
+                                </label>
+                                <label class="table-normal">
+                                    -
+                                </label>
+                                <label class="table-desc">
+                                    -
+                                </label>
+                            </div>
+                            <div class="table-row">
+                                <label class="table-param">
+                                    <div class="show-hint">
+                                        <button type="button" class="info-btn"><img src="/img/info.svg" alt="About"></button>
+                                        <div class="hint">
+                                            <text style="width: 440px">Индекс времени гипотензии - используется в качестве количественной оценки величины “нагрузки давлением”, отражает частоту выхода артериального давления  за “безопасный” нижний уровень артериального давления </text>
+                                        </div>
+                                    </div>
+                                    ИВГ
+                                </label>
+                                <label class="table-value">
+                                    <input type="text" size="5" class="param" value="-" readonly>
+                                    <div class="ellipse" name=""></div>
+                                </label>
+                                <label class="table-normal">
+                                    -
+                                </label>
+                                <label class="table-desc">
+                                    -
+                                </label>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        
+            <script>
+                const fields = document.querySelectorAll('.field');
+                
+                const param = document.querySelector('.param-edit');
+                const params = document.querySelectorAll('.param-edit');
+                
+                const editBtn = document.getElementById('edit-btn');
+                const saveBtn = document.getElementById('save-btn');
+                const denyBtn = document.getElementById('deny-btn');
+                
+                const name = document.getElementById('name');
+                const mail = document.getElementById('mail');
+                const birth = document.getElementById('birth');
+                const position = document.getElementById('position');
+                
+                const sex = document.getElementById('sex');
+                const age = document.getElementById('age');
+                const height = document.getElementById('height');
+                const weight = document.getElementById('weight');
+                
+                const temp = document.getElementById('temp');
+                const satur = document.getElementById('satur');
+                const pulse = document.getElementById('pulse');
+                const sad = document.getElementById('sad');
+                const dad = document.getElementById('dad');
+                const adsr = document.getElementById('adsr');
+                
+                var name_v;
+                var mail_v;
+                var birth_v;
+                var position_v;
+                
+                var sex_v;
+                var age_v;
+                var height_v;
+                var weight_v;
+                
+                var temp_v;
+                var satur_v;
+                var pulse_v;
+                var sad_v;
+                var dad_v;
+                var adsr_v;
+                
+                function codeAddress() {
+                        
+                    }
+                    
+                
+                
+                editBtn.addEventListener('click', () => {
+                    
+                    name_v = name.value;
+                    mail_v = mail.value;
+                    birth_v = birth.value;
+                    position_v = position.value;
+                    
+                    sex_v = sex.value;
+                    age_v = age.value;
+                    height_v = height.value;
+                    weight_v = weight.value;
+                    
+                    temp_v = temp.value;
+                    satur_v = satur.value;
+                    pulse_v = pulse.value;
+                    sad_v = sad.value;
+                    dad_v = dad.value;
+                    adsr_v = adsr.value;
+                    
+                    editBtn.style.display = 'none';
+                    saveBtn.style.display = 'flex';
+                    denyBtn.style.display = 'flex';
+                    
+                    fields.forEach(field => {
+                        field.classList.add('editable');
+                        field.removeAttribute('readonly');
+                    });
+                    
+                    params.forEach(param => {
+                        param.classList.add('editable');
+                        param.removeAttribute('readonly');
+                    });
+
+
+                });
+
+                saveBtn.addEventListener('click', () => {
+                    editBtn.style.display = 'flex';
+                    saveBtn.style.display = 'none';
+                    denyBtn.style.display = 'none';
+                    
+                    fields.forEach(field => {
+                        field.classList.remove('editable');
+                        field.setAttribute('readonly', true);
+                    });
+                    
+                    params.forEach(param => {
+                        param.classList.remove('editable');
+                        param.setAttribute('readonly', true);
+                    });
+                });
+                
+                denyBtn.addEventListener('click', () => {
+                    editBtn.style.display = 'flex';
+                    saveBtn.style.display = 'none';
+                    denyBtn.style.display = 'none';
+                    
+                    
+                    name.value = name_v;
+                    mail.value = mail_v;
+                    birth.value = birth_v;
+                    position.value = position_v;
+                    
+                    sex.value = sex_v;
+                    age.value = age_v;
+                    height.value = height_v;
+                    weight.value = weight_v;
+                    
+                    temp.value = temp_v;
+                    satur.value = satur_v;
+                    pulse.value = pulse_v;
+                    sad.value = sad_v;
+                    dad.value = dad_v;
+                    adsr.value =  adsr_v;
+                    
+                    fields.forEach(field => {
+                        field.classList.remove('editable');
+                        field.setAttribute('readonly', true);
+                    });
+                    
+                    params.forEach(param => {
+                        param.classList.remove('editable');
+                        param.setAttribute('readonly', true);
+                    });
+                    
+                });
+                window.onload = codeAddress;
+            </script>
+            </form> 
+        </body>
+        
+    </html>
